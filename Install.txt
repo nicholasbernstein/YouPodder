@@ -1,0 +1,33 @@
+# This program will download a video from youtube using it's URL
+# It will then create a mp3 version of the file
+# Lastly it will add "bumpers" to the mp3 and save it as out.mp3 
+
+----------------------
+Installing
+----------------------
+
+# Download & install python 3.7 or later from python.org (probably works with other versions, but 3.7 was tested)
+
+# Run the following commmands in a terminal/command prompt to install required python modules:
+# (modules only need to be installed the first time)
+
+pip install pytube
+pip install moviepy
+pip install requests
+
+----------------------
+Running the command
+----------------------
+
+# Copy two mp3 files to the directory where this script is located.
+# call one pre.mp3
+# call the other post.mp3
+
+# Once you have installed the modules: 
+
+Run the command: "cd path"
+	- where path is the path to the folder this program is in (eg: c:\YouPodder\ or ~/Downloads/YouPodder)
+	- on mac systems you can drag the folder onto the terminal and that will insert the path
+
+run the command: 	
+	 python.exe .\extract_audio.py https://www.youtube.com/watch?v=?????????
