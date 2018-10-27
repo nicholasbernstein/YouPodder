@@ -9,6 +9,7 @@ import pytube
 import os
 import sys
 import moviepy.editor as mp
+import re
 
 
 cwd = os.getcwd()
@@ -22,7 +23,10 @@ name = stream.default_filename
 #clip = mp.VideoFileClip(name).subclip(60) #swap this with next line to cut 60 seconds off the beginning
 clip = mp.VideoFileClip(name)
 
-audioname = name + ".mp3"
+audioname = re.sub(r"\.mp4$", ".mp3", name)
+#print("\n" + text + "\n")
+#audioname = name + ".mp3"
+
 clip.audio.write_audiofile(audioname)
 
 outPutFile = "FINAL-" + audioname
