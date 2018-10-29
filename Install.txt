@@ -5,15 +5,24 @@
 ----------------------
 Installing
 ----------------------
-
+[1] PYTHON
 # Download & install python 3.7 or later from python.org (probably works with other versions, but 3.7 was tested)
 
+[2] FFMPEG
+# Download and install the ffmpeg program for your operating system from ffmpeg.org
+# ^^^^^^^^^^^^^^^^^^^      ^^^^^^^
+# extract the zip file and copy the programs in the "bin" directory to the directory this program is in. 
+#                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+# The FFMPEG programs are distributed under the LGPL license: http://ffmpeg.org/legal.html
+
+[3] MODULES
 # Run the following commmands in a terminal/command prompt to install required python modules:
 # (modules only need to be installed the first time)
 
 pip install pytube
 pip install moviepy
 pip install requests
+pip install pynormalize
 
 ----------------------
 Running the command
@@ -30,4 +39,18 @@ Run the command: "cd path"
 	- on mac systems you can drag the folder onto the terminal and that will insert the path
 
 run the command: 	
-	 python.exe .\extract_audio.py https://www.youtube.com/watch?v=?????????
+	 usage: extract_audio.py [-h] -u URL [-os OFFSET_START] [-c]
+
+extract video from youtube, convert to mp3, and combine with pre/post bumpers
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -u URL, --url URL     url to youtube video
+  -os OFFSET_START, --offset_start OFFSET_START
+                        start X seconds into audio, eg: --offset_start 60
+  -c, --combine         Combine Bumpers to create a FINAL-filename.mp3
+
+EXAMPLE:
+	python.exe extract_audio.py -os 60 -c -u https://www.youtube.com/watch?v=6MBJHHY9QLc&t=3s
+	python.exe extract_audio.py --offset_start 60 --combine --url https://www.youtube.com/watch?v=6MBJHHY9QLc&t=3s
+
