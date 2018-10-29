@@ -11,17 +11,19 @@ import sys
 import moviepy.editor as mp
 import re
 import argparse
+import pynormalize
 
 parser = argparse.ArgumentParser(description="extract video from youtube, convert to mp3, and combine with pre/post bumpers")
 parser.add_argument('-u', '--url', type=str, help="url to youtube video", required=True)
 parser.add_argument('-os', '--offset_start', type=int, help="start X seconds into audio, eg: --offset_start 60")
 #parser.add_argument('-t', '--truncate', type=int, help="truncate the file by X seconds, eg --truncate 60")
 parser.add_argument('-c', '--combine', action='store_true', help="Combine Bumpers to create a FINAL-filename.mp3")
+parser.add_argument('-n', '--normalize', action='store_true', help='Normalize audio volumes using ffmpeg libraries')
+parser.add_argument('-d', '--dbfs', type=float, help='optional setting for normalize, sets "target dialogue normalization fill scale", defaults to 0, -13.5 seems to work well too. I don\'t really know what this is doing, but you can look at the ffmpeg documentation, or just try a bunch of numbers and see what works.')
 
 args=parser.parse_args()
 
-def combine_bumpers(audioname):
-    outPutFile = "FINAL-" + audioname
+def combine_bumpers(audioname, outPutFile):
     outfile = open(outPutFile, "wb")
 
     for file in ("pre.mp3", audioname, "post.mp3"):
@@ -62,5 +64,26 @@ clip = mp.VideoFileClip(name).subclip(offset)
 audioname = re.sub(r"\.mp4$", ".mp3", name)
 clip.audio.write_audiofile(audioname)
 
+
+
 if args.combine is True:
-    combine_bumpers(audioname)
+    outPutFile = "FINAL-" + audioname
+    combine_bumpers(audioname, outPutFile)
+else:
+    outPutFile = audioname
+
+if args.normalize is True:
+    Files = [outPutFile]
+    #target_dbfs = -13.5
+    if args.dbfs is None:
+        dbfs=0
+    else:
+        dbfs=args.dbfs
+
+    pynormalize.process_files(Files, -13.5)
+
+   # pynormalize.process_files(
+        #Audio=Files,
+     #   Audio=outPutFile
+    #   target_dbfs=target_dbfs,
+    #)
