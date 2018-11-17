@@ -17,11 +17,7 @@ Installing
 # Run the following commmands in a terminal/command prompt to install required python modules:
 # (modules only need to be installed the first time)
 
-pip install pytube
-pip install moviepy
-pip install requests
-pip install pynormalize
-pip install ffmpeg-normalize
+pip install -r requirements.txt
 
 ----------------------
 Running the command
